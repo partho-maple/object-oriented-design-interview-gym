@@ -5,4 +5,5 @@ enum BookStatus {
     case reserved
     case loaned
     case lost
+    case none
 }

@@ -1,35 +1,49 @@
 import Foundation
 
 class Member: Account {
+    
+    
+    var id: String = ""
+    
+    var password: String = ""
+    
+    var status: AccountStatus
+    
+    var person: Person
+    
+    func resetPassword() -> Bool {
+        
+    }
+    
 
-    private var dateOfMembership: Date
-    private var totalBooksCheckedout: Int
+    private var dateOfMembership: Date?
+    private var totalBooksCheckedout: Int?
 
-    public func getTotalBooksCheckedout() -> Int
+    public func getTotalBooksCheckedout() -> Int {
+        
+    }
 
-    public func reserveBookItem(_ bookItem: BookItem) -> Bool
+    public func reserveBookItem(_ bookItem: BookItem) -> Bool {
+        
+    }
 
-    private func incrementTotalBooksCheckedout() -> ()
-
-    public func checkoutBookItem(_ bookItem: BookItem) -> Bool
-
-    public func returnBookItem(_ bookItem: BookItem) -> Bool
-
-    public func renewBookItem(_ bookItem: BookItem) -> Bool
+    private func incrementTotalBooksCheckedout() -> () {
+        
+    }
 
     public func checkoutBookItem(_ bookItem: BookItem) -> Bool {
-        if (this.getTotalBooksCheckedOut() >= Constants.MAX_BOOKS_ISSUED_TO_A_USER) {
-            ShowError("The user has already checked-out maximum number of books");
+        if self.getTotalBooksCheckedout() >= Constants.MAX_BOOKS_ISSUED_TO_A_USER {
+            //TODO: ShowError("The user has already checked-out maximum number of books");
             return false;
         }
-        BookReservation bookReservation = BookReservation.fetchReservationDetails(bookItem.getBarcode());
-        if (bookReservation != null && bookReservation.getMemberId() != this.getId()) {
+        var bookReservation: BookReservation? = BookReservation.fetchReservationDetails(bookItem.barcode, memberId: self.id)
+        if bookReservation?.memberId != self.id {
             // book item has a pending reservation from another user
-            ShowError("This book is reserved by another member");
+            //ShowError("This book is reserved by another member");
             return false;
-        } else if (bookReservation != null) {
+        } else if bookReservation != nil {
             // book item has a pending reservation from the give member, update it
-            bookReservation.updateStatus(ReservationStatus.COMPLETED);
+            bookReservation?.status = ReservationStatus.completed
         }
 
         if (!bookItem.checkout(this.getId())) {

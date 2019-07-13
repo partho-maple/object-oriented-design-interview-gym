@@ -1,5 +1,6 @@
 import Foundation
 
+
 protocol Account {
     var id: String { get set }
     var password: String { get set }

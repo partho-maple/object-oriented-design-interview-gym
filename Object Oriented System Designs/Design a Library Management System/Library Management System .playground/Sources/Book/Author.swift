@@ -2,6 +2,6 @@ import Foundation
 
 
 struct Author {
-    var name: String
-    var description: String
+    let name: String
+    let description: String
 }

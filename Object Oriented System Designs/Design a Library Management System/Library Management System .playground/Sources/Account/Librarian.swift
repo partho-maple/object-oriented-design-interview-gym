@@ -1,11 +1,35 @@
 import Foundation
 
+
 class Librarian: Account {
+    var id: String
     
-    func addBookItem(_ bookItem: BookItem) -> Bool
+    var password: String
     
-    func blockMember(_ member: Member) -> Bool
+    var status: AccountStatus
     
-    func unBlockMember(_ member: Member) -> Bool
+    var person: Person
     
+    init(_ id: String, password: String, status: AccountStatus, person: Person) {
+        self.id = id
+        self.password = password
+        self.status = status
+        self.person = person
+    }
+    
+    func resetPassword() -> Bool {
+        
+    }
+    
+    func addBookItem(_ bookItem: BookItem) -> Bool {
+        
+    }
+    
+    func blockMember(_ member: Member) -> Bool {
+        
+    }
+    
+    func unBlockMember(_ member: Member) -> Bool {
+        
+    }
 }

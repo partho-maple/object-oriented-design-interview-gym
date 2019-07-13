@@ -1,13 +1,22 @@
 import Foundation
 
 
-public class BookReservation {
-    private Date creationDate;
-    private ReservationStatus status;
-    private String bookItemBarcode;
-    private String memberId;
+struct BookReservation {
+    private lazy var creationDate: Date? = nil
+    var status: ReservationStatus {
+        get {
+            return self.status
+        }
+        set (newStatus) {
+            self.status = newStatus
+        }
+    }
+    private let bookItemBarcode: String
+    var memberId: String
     
-    public static BookReservation fetchReservationDetails(String barcode);
+    static func fetchReservationDetails(_ barcode: String, memberId: String) -> BookReservation {
+        
+    }
 }
 
 

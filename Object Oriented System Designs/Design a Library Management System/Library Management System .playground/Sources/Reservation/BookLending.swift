@@ -1,13 +1,29 @@
 import Foundation
 
 
-public class BookLending {
-    private Date creationDate;
-    private Date dueDate;
-    private Date returnDate;
-    private String bookItemBarcode;
-    private String memberId;
+class BookLending {
+    private var creationDate: Date?
+    private var dueDate: Date?
+    private var returnDate: Date?
+    private var bookItemBarcode: String
+    private var memberId: String
     
-    public static void lendBook(String barcode, String memberId);
-    public static BookLending fetchLendingDetails(String barcode);
+    // Designated Initializer
+    init(bookItemBarcode: String, memberId: String) {
+        self.memberId = memberId
+        self.bookItemBarcode = bookItemBarcode
+    }
+    
+    // Convenience Initializer
+    convenience init(creationDate: Date, dueDate: Date, returnDate: Date, bookItemBarcode: String, memberId: String) {
+        self.init(bookItemBarcode: bookItemBarcode, memberId: memberId)
+        self.creationDate = creationDate
+        self.dueDate = dueDate
+        self.returnDate = returnDate
+    }
+    
+    
+    static func lendBook(barcode: String, memberId: String) -> Bool { }
+    static func  fetchLendingDetails(barcode: String) -> BookLending { }
 }
+

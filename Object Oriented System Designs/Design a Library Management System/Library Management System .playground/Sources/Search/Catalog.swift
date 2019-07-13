@@ -2,19 +2,26 @@ import Foundation
 
 
 
-public class Catalog implements Search {
-    private HashMap<String, List<Book>> bookTitles;
-    private HashMap<String, List<Book>> bookAuthors;
-    private HashMap<String, List<Book>> bookSubjects;
-    private HashMap<String, List<Book>> bookPublicationDates;
+class Catalog: Search {
     
-    public List<Book> searchByTitle(String query) {
-        // return all books containing the string query in their title.
-        return bookTitles.get(query);
+    private lazy var bookTitles: Dictionary<String, [Book]>? = nil
+    private lazy var bookAuthors: Dictionary<String, [Book]>? = nil
+    private lazy var bookSubjects: Dictionary<String, [Book]>? = nil
+    private lazy var bookPublicationDates: Dictionary<String, [Book]>? = nil
+    
+    func searchByTitle(_ title: String) -> [Book] {
+        
     }
     
-    public List<Book> searchByAuthor(String query) {
-        // return all books containing the string query in their author's name.
-        return bookAuthors.get(query);
+    func searchByAuthor(_ author: String) -> [Book] {
+        
+    }
+    
+    func searchBySubject(_ subject: String) -> [Book] {
+        
+    }
+    
+    func searchByPubDate(_ publishDate: Date) -> [Book] {
+        
     }
 }
