@@ -34,47 +34,46 @@ class Member: Account {
     public func checkoutBookItem(_ bookItem: BookItem) -> Bool {
         if self.getTotalBooksCheckedout() >= Constants.MAX_BOOKS_ISSUED_TO_A_USER {
             //TODO: ShowError("The user has already checked-out maximum number of books");
-            return false;
+            return false
         }
         var bookReservation: BookReservation? = BookReservation.fetchReservationDetails(bookItem.barcode, memberId: self.id)
         if bookReservation?.memberId != self.id {
             // book item has a pending reservation from another user
             //ShowError("This book is reserved by another member");
-            return false;
+            return false
         } else if bookReservation != nil {
             // book item has a pending reservation from the give member, update it
             bookReservation?.status = ReservationStatus.completed
         }
 
-        if (!bookItem.checkout(this.getId())) {
-            return false;
+        if !bookItem.checkout(self.id) {
+            return false
         }
 
-        this.incrementTotalBooksCheckedout();
-        return true;
+        self.incrementTotalBooksCheckedout();
+        return true
     }
 
     private func checkForFine(_ bookItemBarcode: String) {
-        BookLending bookLending = BookLending.fetchLendingDetails(bookItemBarcode);
-        Date dueDate = bookLending.getDueDate();
-        Date today = new Date();
+        let bookLending = BookLending.fetchLendingDetails(barcode: bookItemBarcode, memberId: self.id)
+        let dueDate = bookLending.dueDate
+        let today = Date()
         // check if the book has been returned within the due date
-        if (today.compareTo(dueDate) > 0) {
-            long diff = todayDate.getTime() - dueDate.getTime();
-            long diffDays = diff / (24 * 60 * 60 * 1000);
-            Fine.collectFine(memberId, diffDays);
+        if today.compare(today).rawValue > 0 {
+            // calculate the diff days and geet fine
+            Fine.collectFine(self.id, days: 120)
         }
     }
 
     public func returnBookItem(_ bookItem: BookItem) {
-        this.checkForFine();
-        BookReservation bookReservation = BookReservation.fetchReservationDetails(bookItem.getBarcode());
-        if (bookReservation != null) {
+        self.checkForFine(bookItem.barcode)
+        var bookReservation: BookReservation? = BookReservation.fetchReservationDetails(bookItem.barcode, memberId: self.id)
+        if bookReservation != nil {
             // book item has a pending reservation
-            bookItem.updateBookItemStatus(BookStatus.RESERVED);
-            bookReservation.sendBookAvailableNotification();
+            bookItem.status = BookStatus.reserved
+            // bookReservation.sendBookAvailableNotification();
         }
-        bookItem.updateBookItemStatus(BookStatus.AVAILABLE);
+        bookItem.status = BookStatus.available
     }
 
     public func renewBookItem(_ bookItem: BookItem) {

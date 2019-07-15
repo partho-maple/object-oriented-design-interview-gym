@@ -2,11 +2,11 @@ import Foundation
 
 
 class BookLending {
-    private var creationDate: Date?
-    private var dueDate: Date?
-    private var returnDate: Date?
-    private var bookItemBarcode: String
-    private var memberId: String
+    private(set) var creationDate: Date?
+    private(set) var dueDate: Date?
+    private(set) var returnDate: Date?
+    private(set) var bookItemBarcode: String
+    private(set) var memberId: String
     
     // Designated Initializer
     init(bookItemBarcode: String, memberId: String) {
@@ -23,7 +23,11 @@ class BookLending {
     }
     
     
-    static func lendBook(barcode: String, memberId: String) -> Bool { }
-    static func  fetchLendingDetails(barcode: String) -> BookLending { }
+    static func lendBook(barcode: String, memberId: String) -> Bool {
+        return false
+    }
+    static func  fetchLendingDetails(barcode: String, memberId: String) -> BookLending {
+        return BookLending(bookItemBarcode: barcode, memberId: memberId)
+    }
 }
 

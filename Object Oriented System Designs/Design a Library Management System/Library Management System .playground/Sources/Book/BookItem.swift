@@ -25,7 +25,7 @@ class BookItem: Book {
     private(set) var dueDate: Date?
     private(set) var price: Double?
     private(set) var format: BookFormat?
-    private(set) var status: BookStatus = BookStatus.none {
+    var status: BookStatus = BookStatus.none {
         willSet(newTotalSteps) {
             // Do nothing
         }
