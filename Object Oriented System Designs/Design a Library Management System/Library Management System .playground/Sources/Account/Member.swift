@@ -18,6 +18,10 @@ class Member: Account {
 
     private var dateOfMembership: Date?
     private var totalBooksCheckedout: Int?
+    
+    init() {
+        
+    }
 
     public func getTotalBooksCheckedout() -> Int {
         
@@ -67,7 +71,7 @@ class Member: Account {
 
     public func returnBookItem(_ bookItem: BookItem) {
         self.checkForFine(bookItem.barcode)
-        var bookReservation: BookReservation? = BookReservation.fetchReservationDetails(bookItem.barcode, memberId: self.id)
+        let bookReservation: BookReservation? = BookReservation.fetchReservationDetails(bookItem.barcode, memberId: self.id)
         if bookReservation != nil {
             // book item has a pending reservation
             bookItem.status = BookStatus.reserved
@@ -77,21 +81,8 @@ class Member: Account {
     }
 
     public func renewBookItem(_ bookItem: BookItem) {
-        this.checkForFine();
-        BookReservation bookReservation = BookReservation.fetchReservationDetails(bookItem.getBarcode());
+        self.checkForFine(bookItem.barcode)
+        var bookReservation: BookReservation? = BookReservation.fetchReservationDetails(bookItem.barcode, memberId: self.id)
         // check if this book item has a pending reservation from another member
-        if (bookReservation != null && bookReservation.getMemberId() != member.getMemberId()) {
-            ShowError("This book is reserved by another member");
-            member.decrementTotalBooksCheckedout();
-            bookItem.updateBookItemState(BookStatus.RESERVED);
-            bookReservation.sendBookAvailableNotification();
-            return false;
-        } else if (bookReservation != null) {
-            // book item has a pending reservation from this member
-            bookReservation.updateStatus(ReservationStatus.COMPLETED);
-        }
-        BookLending.lendBook(bookItem.getBarCode(), this.getMemberId());
-        bookItem.updateDueDate(LocalDate.now().plusDays(Constants.MAX_LENDING_DAYS));
-        return true;
     }
 }
