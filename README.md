@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="https://github.com/partho-maple/ios-interview-gym/archive/master.zip"><img src="banner.jpg"></a>
+  <a href="https://github.com/partho-maple/ios-interview-gym/archive/master.zip"><img src="banner.png"></a>
 </h1>
 
 [![GitHub last commit][last-commit-shield]][last-commit-url]
